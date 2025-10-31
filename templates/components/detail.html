@@ -1,0 +1,98 @@
+ {% load static %}
+ <!-- Book Detail Section -->
+    <main class="detail-container">
+        <div class="detail-content">
+            <!-- Book Image -->
+            <div class="detail-image">
+                <img src="{{book.image.url}}" alt="{{book.title}}" id="bookImage">
+            </div>
+
+
+                   <!-- Book Information -->
+            <div class="detail-info">
+                <h1 id="bookTitle">{{book.title}}</h1>
+                
+                <div class="book-meta">
+                    <p><strong>Author:</strong> <span id="bookAuthor">{{book.author}}</span></p>
+                    <p><strong>Category:</strong> <span id="bookCategory">{{book.category.name}}</span></p>
+                    <p><strong>Year:</strong> <span id="bookYear">{{book.year}}</span></p>
+                    <p><strong>Language:</strong> <span id="bookLanguage">{{book.language}}</span></p>
+                    <p><strong>Pages:</strong> <span id="bookPages">{{book.pages}}</span></p>
+                </div>
+                    <div class="book-actions">
+                    {% if is_favorite %}
+                        <a href="{% url 'remove-favorite' book.id %}" class="btn btn-danger">Remove from Favorites</a>
+                    {% else %}
+                         <a href="{% url 'add-favorite' book.id %}" class="btn btn-primary">Add to Favorites</a>
+                    {% endif %}
+                    </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2>Reviews</h2>
+            
+            <div class="add-review">
+                <h3>Leave a Review</h3>
+                <form id="reviewForm"  method='post'>
+                    {% csrf_token %}
+
+                    <textarea placeholder="Write your review here..." name="comment_text" id="reviewText" rows="5"></textarea>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                </form>
+            </div>
+
+            <div class="reviews-list" id="reviewsList">
+               {% for comment in comments  %}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>{{comment.user.username}}</strong>
+                            <span class="review-date">{{comment.created_at}}</span>
+                        </div>
+                        <p class="review-text">{{comment.text}}</p>
+                    </div>
+                    
+                {% empty %}
+                    <p>No reviews yet. Be the first to leave a comment!</p>
+               {% endfor %}
+               
+            </div>
+        </div>
+
+        <!-- Related Books -->
+        <div class="related-books">
+            <h2>Related Books</h2>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="media/book2.jpg" alt="Related Book">
+                    </div>
+                    <h3>Related Book 1</h3>
+                    <p class="author">Author Name</p>
+                    <p class="category">Category</p>
+                    <a href="detail.html" class="btn btn-small">View Details</a>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="media/book3.jpg" alt="Related Book">
+                    </div>
+                    <h3>Related Book 2</h3>
+                    <p class="author">Author Name</p>
+                    <p class="category">Category</p>
+                    <a href="detail.html" class="btn btn-small">View Details</a>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="media/book4.jpg" alt="Related Book">
+                    </div>
+                    <h3>Related Book 3</h3>
+                    <p class="author">Author Name</p>
+                    <p class="category">Category</p>
+                    <a href="detail.html" class="btn btn-small">View Details</a>
+                </div>
+            </div>
+        </div>
+    </main>

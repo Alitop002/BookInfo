@@ -1,0 +1,29 @@
+{% load static %}
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1>All Books</h1>
+            <p class="subtitle">Read the best books from Uzbek, Russian and English literature</p>
+        </header>
+
+        <!-- Removed search and filter functionality - keeping only HTML structure -->
+        <!-- Books Grid -->
+        <div class="books-grid">
+            {% for book in books %}
+                <div class="book-card">
+                    <div class="book-image"><img src="{{book.image.url}}" alt="{{book.title}}"></div>
+                        <div class="book-content">
+                            <span class="book-category">{{book.category.name}}</span>
+                            <h3 class="book-title">{{book.title}}</h3>
+                            <p class="book-author">{{book.author}}</p>
+                                
+                            <div class="book-actions">
+                            <a href="{% url 'detail' book.id %}" class="btn btn-primary">Details</a>
+                            <a href="{% url 'add-favorite' book.id %}" class="btn btn-primary">❤️</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+          
+        </div>
+    </div>

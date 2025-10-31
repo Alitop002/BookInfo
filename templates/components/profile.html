@@ -1,0 +1,60 @@
+    <!-- Main Content -->
+    <div class="container">
+        <div class="profile-container">
+            <!-- Sidebar -->
+            <div class="profile-sidebar">
+                <div class="profile-avatar">👤</div>
+                <div class="profile-info">
+                    <h3 class="profile-name" id="userName">{{user.username}}</h3>
+                    <p class="profile-email" id="userEmail">{{user.email}}</p>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="profile-content">
+                <h2>Profile Information</h2>
+                
+                <div style="margin-bottom: 40px;">
+                    <h3 style="margin-bottom: 20px;">Personal Information</h3>
+                    <form id="profileForm" onsubmit="updateProfile(event)" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="profileName"  value="{{user.username}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="profileEmail" value="{{user.first_name}}" name="first_name" >
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="profilePhone" value="{{user.last_name}}" name="last_name" >
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+
+                <div style="margin-bottom: 40px; padding-top: 40px; border-top: 2px solid var(--border);">
+                    <h3 style="margin-bottom: 20px;">Change Password</h3>
+                    <form id="passwordForm" method="post" action="{% url 'change_password' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label>Old Password</label>
+                            <input type="password" id="oldPassword" name="old_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="newPassword" name="new_password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" id="confirmNewPassword" name="conf_password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Change</button>
+                    </form>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>

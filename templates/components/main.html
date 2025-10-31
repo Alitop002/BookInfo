@@ -1,0 +1,70 @@
+
+    <!-- Main Content -->
+    <div class="container">
+        <header>
+            <h1>Welcome to BookInfo!</h1>
+            <p class="subtitle">Read the best books from Uzbek, Russian and English literature and share your thoughts</p>
+        </header>
+
+        <!-- Added search bar and category filter buttons - empty, no functionality -->
+         <form action="{% url 'books' %}" method='get'>
+        <div class="filters-section">
+            <div class="search-bar">
+                <input type="text" id="searchInput" name="q" placeholder="Search by book title or author...">
+                <button class="btn btn-primary" type='sumbit'>Search</button>
+            </div>
+            
+            
+        </div>
+        </form>
+
+        <!-- Books Grid -->
+        <div class="books-grid">
+         {% for book in books %}
+         
+                   <!-- Book 1 -->
+            <div class="book-card">
+                <div class="book-image"><img src="{{book.image.url}}" alt="{{book.title}}"></div>
+                <div class="book-content">
+                    <span class="book-category">{{book.category.name}}</span>
+                    <h3 class="book-title">{{book.title}}</h3>
+                    <p class="book-author">{{book.author}}</p>
+                    <div class="book-actions">
+                        <!-- Added link to detail page -->
+                        <a href="{% url 'detail' book.id %}" class="btn btn-primary">Details</a>
+                        <a href="{% url 'add-favorite' book.id %}" class="btn btn-primary">❤️</a>
+                    </div>
+                </div>
+            </div>
+
+         
+         {% endfor %}
+    
+        </div>
+    </div>
+
+    <!-- Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('reviewModal')">&times;</span>
+            <h2>Share Your Review</h2>
+            <form onsubmit="submitReview(event)">
+                <div class="form-group">
+                    <label>Rating</label>
+                    <select id="rating" required style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
+                        <option value="">Select a rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                        <option value="4">⭐⭐⭐⭐ - Good</option>
+                        <option value="3">⭐⭐⭐ - Average</option>
+                        <option value="2">⭐⭐ - Poor</option>
+                        <option value="1">⭐ - Very Poor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Review</label>
+                    <textarea id="reviewText" placeholder="Write your review..." required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Submit</button>
+            </form>
+        </div>
+    </div>

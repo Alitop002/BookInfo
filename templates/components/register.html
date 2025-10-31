@@ -1,0 +1,20 @@
+    <!-- Register Form -->
+    <div class="form-container">
+        <h2>Register</h2>
+            <form method="post" class="form-group" >
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="input-wrapper">
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="form-submit">Register</button>
+            </form>
+      
+
+        <div class="form-link">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+z   

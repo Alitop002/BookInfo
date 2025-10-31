@@ -1,0 +1,34 @@
+<!-- Main Content -->
+<main class="favorite-container">
+    <div class="favorite-header">
+        <h1>My Favorite Books</h1>
+        <p>Your collection of favorite books</p>
+    </div>
+
+    <!-- Favorite Books Grid -->
+    <div class="favorite-books">
+        {% if favorite %}
+            {% for favor in favorite %}
+                <div class="book-card">
+                    <div class="book-image">
+                        <img src="{{ favor.book.image.url }}" alt="{{ favor.book.title }}">
+                    </div>
+                    <div class="book-info">
+                        <h3>{{ favor.book.title }}</h3>
+                        <p class="author">{{ favor.book.author }}</p>
+                        <p class="category">{{ favor.book.category.name }}</p>
+                        <div class="book-actions">
+                            <a href="{% url 'detail' favor.book.id %}" class="btn btn-primary">View Details</a>
+                            <a href="{% url 'remove-favorite' favor.book.id %}" class="btn btn-secondary">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div style="width: 100%; text-align: center; margin-top: 100px;">
+                <h2>You don’t have any favorite books yet 😔</h2>
+                <p>Go to <a href="{% url 'books' %}">All Books</a> to add them to your favorites.</p>
+            </div>
+        {% endif %}
+    </div>
+</main>
